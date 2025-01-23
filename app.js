@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const apiRoutes = require('./routes/api');
+require('dotenv').config(); // To load environment variables from a .env file
 
 const app = express();
 
@@ -12,13 +13,13 @@ app.use(bodyParser.json());
 app.use('/api', apiRoutes);
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://afek:afek4321@cluster0.2zqqy.mongodb.net/costs?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connection.once('open', () => {
-  console.log('Connected to MongoDB Atlas');
-});
+mongoose.connect(process.env.MONGO_URI) // Use the MONGO_URI environment variable
+  .then(() => {
+    console.log('Connected to MongoDB Atlas');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit process on connection failure
+  });
 
 module.exports = app;
