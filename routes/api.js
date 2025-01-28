@@ -6,10 +6,23 @@ const User = require('../models/user');
 
 // Add a new cost item
 router.post('/add', async (req, res) => {
+  const { description, category, userId, amount, date } = req.body;
+
+  // Validate required parameters
+  if (!description || !category || !userId || amount === undefined) {
+    return res.status(400).json({ error: 'Missing required parameters: description, category, userId, and amount' });
+  }
+
+  // Validate category
+  const validCategories = ['food', 'health', 'housing', 'sport', 'education'];
+  if (!validCategories.includes(category)) {
+    return res.status(400).json({ error: `Invalid category. Valid categories are: ${validCategories.join(', ')}` });
+  }
+
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const costItem = new CostItem(req.body);
+    const costItem = new CostItem({ description, category, userId, amount, date: date || new Date() });
     await costItem.save({ session });
 
     // Update the user's totalCosts
@@ -51,7 +64,16 @@ router.get('/report', async (req, res) => {
       userId,
       date: { $gte: startDate, $lte: endDate },
     });
-    res.json(costItems);
+
+    const groupedCosts = costItems.reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    }, {});
+
+    res.json(groupedCosts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

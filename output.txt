@@ -1,0 +1,32 @@
+__________________________________
+
+testing getting the about
+-------------------------
+url=http://localhost:3000/api/about/
+data.status_code=200
+b'[{"firstName":"Afek","lastName":"David"},{"firstName":"Shai","lastName":"Hanoni"}]'
+data.text=[{"firstName":"Afek","lastName":"David"},{"firstName":"Shai","lastName":"Hanoni"}]
+[{'firstName': 'Afek', 'lastName': 'David'}, {'firstName': 'Shai', 'lastName': 'Hanoni'}]
+
+testing getting the report - 1
+------------------------------
+url=http://localhost:3000/api/report/?userId=123123&year=2025&month=2
+data.status_code=200
+b'{}'
+data.text={}
+
+
+testing adding cost item
+----------------------------------
+url=http://localhost:3000/api/add/
+data.status_code=200
+b'{"userId":"123123","description":"milk 9","category":"food","amount":8,"date":"2025-02-15T00:00:00.000Z","_id":"679912144bb6db33b06ee076","__v":0}'
+
+testing getting the report - 2
+------------------------------
+url=http://localhost:3000/api/report/?userId=123123&year=2025&month=2
+data.status_code=200
+b'{"food":[{"_id":"679912144bb6db33b06ee076","userId":"123123","description":"milk 9","category":"food","amount":8,"date":"2025-02-15T00:00:00.000Z","__v":0}]}'
+data.text={"food":[{"_id":"679912144bb6db33b06ee076","userId":"123123","description":"milk 9","category":"food","amount":8,"date":"2025-02-15T00:00:00.000Z","__v":0}]}
+
+

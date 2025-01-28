@@ -12,7 +12,11 @@ const mongoose = require('mongoose');
 const costItemSchema = new mongoose.Schema({
   userId: String,
   description: String,
-  category: String,
+  category: {
+    type: String,
+    enum: ['food', 'health', 'housing', 'sport', 'education'],
+    required: true,
+  },
   amount: Number,
   date: Date,
 });
