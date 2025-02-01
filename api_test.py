@@ -37,7 +37,7 @@ print("-------------------------------")
 try:
     text = ""
     url = line + "/api/add/"
-    data = requests.post(url, json={'userId': '123123', 'description': 'test item', 'category': 'food', 'amount': 50, 'date': '2025-02-15T00:00:00.000Z'})
+    data = requests.post(url, json={'userId': '123123', 'description': 'test item', 'category': 'food', 'sum': 50, 'date': '2025-02-15T00:00:00.000Z'})
     print("url=" + url)
     print("data.status_code=" + str(data.status_code))
     print(data.content)
@@ -72,7 +72,7 @@ print("----------------------------------")
 try:
     text = ""
     url = line + "/api/add/"
-    data = requests.post(url, json={'userId': '123123', 'description': 'milk 9', 'category': 'food', 'amount': 8, 'date': '2025-02-15T00:00:00.000Z'})
+    data = requests.post(url, json={'userId': '123123', 'description': 'milk 9', 'category': 'food', 'sum': 8, 'date': '2025-02-15T00:00:00.000Z'})
     print("url=" + url)
     print("data.status_code=" + str(data.status_code))
     print(data.content)

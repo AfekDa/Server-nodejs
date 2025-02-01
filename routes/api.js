@@ -6,11 +6,11 @@ const User = require('../models/user');
 
 // Add a new cost item
 router.post('/add', async (req, res) => {
-  const { description, category, userId, amount, date } = req.body;
+  const { description, category, userId, sum, date } = req.body;
 
   // Validate required parameters
-  if (!description || !category || !userId || amount === undefined) {
-    return res.status(400).json({ error: 'Missing required parameters: description, category, userId, and amount' });
+  if (!description || !category || !userId || sum === undefined) {
+    return res.status(400).json({ error: 'Missing required parameters: description, category, userId, and sum' });
   }
 
   // Validate category
@@ -22,7 +22,7 @@ router.post('/add', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const costItem = new CostItem({ description, category, userId, amount, date: date || new Date() });
+    const costItem = new CostItem({ description, category, userId, amount: sum, date: date || new Date() });
     await costItem.save({ session });
 
     // Update the user's totalCosts
@@ -69,7 +69,11 @@ router.get('/report', async (req, res) => {
       if (!acc[item.category]) {
         acc[item.category] = [];
       }
-      acc[item.category].push(item);
+      acc[item.category].push({
+        sum: item.amount,
+        day: item.date.getDate(),
+        description: item.description
+      });
       return acc;
     }, {});
 

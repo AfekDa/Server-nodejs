@@ -1,0 +1,38 @@
+__________________________________
+
+testing getting the about
+-------------------------
+url=http://localhost:3000/api/about/
+data.status_code=200
+b'[{"firstName":"Afek","lastName":"David"},{"firstName":"Shai","lastName":"Hanoni"}]'
+data.text=[{"firstName":"Afek","lastName":"David"},{"firstName":"Shai","lastName":"Hanoni"}]
+[{'firstName': 'Afek', 'lastName': 'David'}, {'firstName': 'Shai', 'lastName': 'Hanoni'}]
+
+adding a cost item for the user
+-------------------------------
+url=http://localhost:3000/api/add/
+data.status_code=200
+b'{"userId":"123123","description":"test item","category":"food","amount":50,"date":"2025-02-15T00:00:00.000Z","_id":"679e72ad14920c20c43c6c71","__v":0}'
+
+testing getting the report - 1
+------------------------------
+url=http://localhost:3000/api/report/?userId=123123&year=2025&month=2
+data.status_code=200
+b'{"food":[{"sum":50,"day":15,"description":"test item"},{"sum":8,"day":15,"description":"milk 9"},{"sum":50,"day":15,"description":"test item"}]}'
+data.text={"food":[{"sum":50,"day":15,"description":"test item"},{"sum":8,"day":15,"description":"milk 9"},{"sum":50,"day":15,"description":"test item"}]}
+
+
+testing adding cost item
+----------------------------------
+url=http://localhost:3000/api/add/
+data.status_code=200
+b'{"userId":"123123","description":"milk 9","category":"food","amount":8,"date":"2025-02-15T00:00:00.000Z","_id":"679e72ad14920c20c43c6c75","__v":0}'
+
+testing getting the report - 2
+------------------------------
+url=http://localhost:3000/api/report/?userId=123123&year=2025&month=2
+data.status_code=200
+b'{"food":[{"sum":50,"day":15,"description":"test item"},{"sum":8,"day":15,"description":"milk 9"},{"sum":50,"day":15,"description":"test item"},{"sum":8,"day":15,"description":"milk 9"}]}'
+data.text={"food":[{"sum":50,"day":15,"description":"test item"},{"sum":8,"day":15,"description":"milk 9"},{"sum":50,"day":15,"description":"test item"},{"sum":8,"day":15,"description":"milk 9"}]}
+
+
