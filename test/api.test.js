@@ -40,8 +40,8 @@ describe('API Endpoints', () => {
         .send({
           userId: '123123',
           description: 'Bills',
-          category: 'Water',
-          amount: 30,
+          category: 'food', // Use a valid category
+          sum: 30,
           date: '2023-10-01T00:00:00.000Z',
         })
         .end((err, res) => {
