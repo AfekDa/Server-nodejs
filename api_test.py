@@ -31,23 +31,7 @@ except Exception as e:
 
 print()
 
-print("adding a cost item for the user")
-print("-------------------------------")
-
-try:
-    text = ""
-    url = line + "/api/add/"
-    data = requests.post(url, json={'userId': '123123', 'description': 'test item', 'category': 'food', 'sum': 50, 'date': '2025-02-15T00:00:00.000Z'})
-    print("url=" + url)
-    print("data.status_code=" + str(data.status_code))
-    print(data.content)
-except Exception as e:
-    print("problem")
-    print(e)
-
-print()
-
-print("testing getting the report - 1")
+print("testing getting the report - 1 (before adding cost items)")
 print("------------------------------")
 
 try:
@@ -66,7 +50,42 @@ except Exception as e:
 
 print()
 
-print("testing adding cost item")
+print("adding a cost item for the user")
+print("-------------------------------")
+
+try:
+    text = ""
+    url = line + "/api/add/"
+    data = requests.post(url, json={'userId': '123123', 'description': 'test item', 'category': 'food', 'sum': 50, 'date': '2025-02-15T00:00:00.000Z'})
+    print("url=" + url)
+    print("data.status_code=" + str(data.status_code))
+    print(data.content)
+except Exception as e:
+    print("problem")
+    print(e)
+
+print()
+
+print("testing getting the report - 2 (after adding cost items)")
+print("------------------------------")
+
+try:
+    text = ""
+    # getting the report
+    url = line + "/api/report/?userId=123123&year=2025&month=2"
+    data = requests.get(url)
+    print("url=" + url)
+    print("data.status_code=" + str(data.status_code))
+    print(data.content)
+    print("data.text=" + data.text)
+    print(text)
+except Exception as e:
+    print("problem")
+    print(e)
+
+print()
+
+print("testing adding another cost item")
 print("----------------------------------")
 
 try:
@@ -82,7 +101,7 @@ except Exception as e:
 
 print()
 
-print("testing getting the report - 2")
+print("testing getting the report - 3 (after adding another cost item)")
 print("------------------------------")
 
 try:

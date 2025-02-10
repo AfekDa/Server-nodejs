@@ -6,6 +6,12 @@ require('dotenv').config(); // To load environment variables from a .env file
 
 const app = express();
 
+// Middleware to remove redundant slashes
+app.use((req, res, next) => {
+  req.url = req.url.replace(/\/+/g, '/');
+  next();
+});
+
 // Middleware
 app.use(bodyParser.json());
 
